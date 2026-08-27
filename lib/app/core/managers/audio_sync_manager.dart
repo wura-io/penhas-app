@@ -204,7 +204,10 @@ class AudioSyncManager implements IAudioSyncManager {
       };
       if (activeStatuses.contains(record.status)) return;
 
-      if (record.status == TaskStatus.complete) return;
+      if (record.status == TaskStatus.complete) {
+        await _deleteCompletedTaskFile(record.task);
+        return;
+      }
 
       // Remove a terminal record before retrying it. The file stays until a
       // later complete update is received, including for canceled uploads.

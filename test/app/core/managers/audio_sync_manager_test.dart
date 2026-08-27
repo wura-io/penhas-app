@@ -249,6 +249,8 @@ void main() {
         '1700000000000_550e8400-e29b-41d4-a716-446655440003_1.aac';
     const completeFileName =
         '1700000000000_550e8400-e29b-41d4-a716-446655440004_1.aac';
+    const persistedCompleteFileName =
+        '1700000000000_550e8400-e29b-41d4-a716-446655440011_1.aac';
     const nativePendingFileName =
         '1700000000000_550e8400-e29b-41d4-a716-446655440007_1.aac';
     const legacyCanceledFileName =
@@ -516,6 +518,23 @@ void main() {
       for (final file in invalidFiles) {
         expect(file.existsSync(), isTrue);
       }
+    });
+
+    test('cleans a file left by a recognized complete record', () async {
+      stubServerConfiguration();
+      final file = createAudioFile(persistedCompleteFileName);
+      when(() => database.recordForId(persistedCompleteFileName)).thenAnswer(
+        (_) async => recordFor(
+          persistedCompleteFileName,
+          TaskStatus.complete,
+        ),
+      );
+
+      await sut.syncAudio();
+
+      expect(file.existsSync(), isFalse);
+      verifyNever(() => database.deleteRecordWithId(any()));
+      verifyNever(() => downloader.enqueue(any()));
     });
 
     test('leaves an unrelated failed record untouched', () async {
