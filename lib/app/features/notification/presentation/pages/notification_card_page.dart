@@ -44,35 +44,40 @@ class NotificationCardPage extends StatelessWidget {
                             height: 24,
                             width: 24,
                           ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 4.0),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 4.0),
-                                  child: Text(notification.name!,
-                                      style: titleTextStyle),
-                                ),
-                                Expanded(
-                                  child: Text(
-                                    notification.title!,
-                                    style: titleTextStyle,
+                    // Expanded bounds the content column to the row's finite
+                    // width, so the title below can wrap onto multiple
+                    // lines instead of overflowing or being truncated.
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 4.0),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 4.0),
+                                    child: Text(notification.name!,
+                                        style: titleTextStyle),
                                   ),
-                                ),
-                              ],
+                                  Expanded(
+                                    child: Text(
+                                      notification.title!,
+                                      style: titleTextStyle,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Text(
-                            timeago.format(notification.time!, locale: 'pt_br'),
-                            style: timeTextStyle,
-                          ),
-                        ],
+                            Text(
+                              timeago.format(notification.time!, locale: 'pt_br'),
+                              style: timeTextStyle,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],
