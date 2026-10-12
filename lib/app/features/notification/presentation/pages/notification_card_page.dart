@@ -73,7 +73,8 @@ class NotificationCardPage extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              timeago.format(notification.time!, locale: 'pt_br'),
+                              timeago.format(notification.time!,
+                                  locale: 'pt_br'),
                               style: timeTextStyle,
                             ),
                           ],
