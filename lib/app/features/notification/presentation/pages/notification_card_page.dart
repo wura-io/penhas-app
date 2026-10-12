@@ -52,19 +52,17 @@ class NotificationCardPage extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(bottom: 4.0),
                             child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.only(right: 4.0),
                                   child: Text(notification.name!,
                                       style: titleTextStyle),
                                 ),
-                                SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.50,
+                                Expanded(
                                   child: Text(
                                     notification.title!,
                                     style: titleTextStyle,
-                                    overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
                               ],
